@@ -1,6 +1,5 @@
 """
-Runner script that contains the main method. It is from this method where
-everything begins.
+Runner script that initiates the program.
 """
 __author__ = "Vineet Jain"
 
@@ -9,5 +8,7 @@ def main():
     print 'Hello World'
 
 
+# Calls the main function to begin the program. Exits on completion or if an
+# error occurred
 if __name__ == "__main__":
     main()
