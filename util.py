@@ -22,3 +22,22 @@ def file_exists(path):
         return os.path.isfile(path)
     else:
         return False
+
+
+def print_dict(dictionary):
+    """
+    Prints dictionary in a readable way
+    :param dictionary: the dictionary to be printed
+    """
+    def dict_str(dct, depth):
+        to_str = "{\n"
+        tabs = "".join(["\t" for _ in range(depth+1)])
+        for key, val in dct.items():
+            if type(val) is dict:
+                val_string = dict_str(val, depth+1)
+            else:
+                val_string = str(val)
+            to_str += "{}{}: {}\n".format(tabs, key, val_string)
+        return to_str + tabs[:-1] + "}"
+
+    print dict_str(dictionary, 0)
