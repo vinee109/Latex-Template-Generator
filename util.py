@@ -30,6 +30,14 @@ def print_dict(dictionary):
     :param dictionary: the dictionary to be printed
     """
     def dict_str(dct, depth):
+        """
+        Recursively computes the string representation for a given dict
+        :param dct: the dict of interest
+        :param depth: the current depth we are at, this determines how many
+        tabs we use
+        :return: the string representation of the given dict
+        :rtype: str
+        """
         to_str = "{\n"
         tabs = "".join(["\t" for _ in range(depth+1)])
         for key, val in dct.items():
