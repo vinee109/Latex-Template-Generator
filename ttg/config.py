@@ -5,6 +5,7 @@ __author__ = "Vineet Jain"
 
 import error
 import json
+import os
 import util
 
 # Constants pertaining to required fields
@@ -29,6 +30,7 @@ class TTGConfiguration:
         :param filename: the path to the configuration file of interest
         :raises: MalformedConfigFileException
         """
+        self.current_dir = os.path.dirname(filename)
         str_contents = "\n".join(util.read_file(filename))
         try:
             contents = json.JSONDecoder().decode(str_contents)
