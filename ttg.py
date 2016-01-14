@@ -3,12 +3,18 @@ Runner script that initiates the program.
 """
 __author__ = "Vineet Jain"
 
-
 import argparse
+import ttg.config
+import ttg.populate
+import util
 
 
 def do_command(args):
-    return
+    config = ttg.config.TTGConfiguration(args.config)
+    populator = ttg.populate.TTGPopulator(args.source, config)
+    contents = populator.populate()
+    util.write_file(contents, args.output)
+
 
 def parse_command():
     parser = argparse.ArgumentParser(description="Latex Template Generator")
@@ -17,6 +23,10 @@ def parse_command():
     parser.add_argument("output", type=str, help="(str) the path where the "
                                                  "resulting populated latex "
                                                  "file will exist")
+    parser.add_argument("config", type=str, help="(str) the path where the "
+                                                 "config lies dictating how "
+                                                 "the source is to be "
+                                                 "populated")
     return parser.parse_args()
 
 # Parses flags passed in by the user and initiates the program. Exits on
