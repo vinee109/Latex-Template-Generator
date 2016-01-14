@@ -27,6 +27,16 @@ def read_file_str(filename):
     """
     return "\n".join(read_file(filename))
 
+def write_file(contents, filename):
+    """
+    Writes some content to a specified file
+    :param contents: the contents to be written
+    :param filename: the path of the file we want to write these contents to
+    """
+    with open(filename, "w") as f:
+        f.write(contents)
+
+
 def file_exists(path):
     """
     Checks if the specified path actually exists as a file or not
