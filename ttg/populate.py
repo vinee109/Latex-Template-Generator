@@ -34,7 +34,6 @@ class TTGPopulator:
             self.config.question_layout_file)
         ques_struct = util.read_file(qlf_path)
         self.qtree = QuestionTree(ques_struct)
-        print self.qtree
 
 
     def populate(self):
@@ -49,7 +48,8 @@ class TTGPopulator:
             if field != QUESTIONS:
                 pattern = "<<{}>>".format(field)
                 populated_contents = populated_contents.replace(pattern, value)
-        return populated_contents
+        body = self.qtree.to_latex()
+        return populated_contents.replace("<<{}>>".format(QUESTIONS), body)
 
 
 class QuestionTree:
@@ -74,6 +74,31 @@ class QuestionTree:
             child = Node(val=q_text)
             parent.children.append(child)
             stack.append((child, depth))
+
+    def to_latex(self):
+        lines = []
+        self.__to_latex_helper(self._root, -1, lines)
+        return "\n".join(lines[1:])
+
+    def __to_latex_helper(self, node, depth, lines):
+        if len(node.children) == 0:
+            return
+        tabs = self.__tabs(depth)
+        if depth >= 0:
+            lines.append(tabs + "\\begin{enumerate}")
+        for child in node.children:
+            if depth >= 0:
+                lines.append(tabs + "\t" + "\\item[{}]".format(child.value))
+            else:
+                lines.append("\\newpage")
+                lines.append("")
+                lines.append("\\section*{{{}}}".format(child.value))
+            self.__to_latex_helper(child, depth+1, lines)
+        if depth >= 0:
+            lines.append(tabs + "\\end{enumerate}")
+
+    def __tabs(self, num):
+        return "".join(["\t" for _ in range(num)])
 
     def __repr__(self):
         return "".join(map(str, self._root.children))
