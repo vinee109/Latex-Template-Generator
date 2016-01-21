@@ -36,10 +36,12 @@ class TTGPopulator:
         self.qtree = QuestionTree(ques_struct)
 
 
-    def populate(self):
+    def populate(self, with_questions=True):
         """
         Actually populates the template with the values from the config and
         the question structure.
+        :param with_questions: if we are populating questions, for example
+        for a homework template
         :return: A new string identical to the template contents but with all
         necessary information populated
         """
@@ -48,8 +50,11 @@ class TTGPopulator:
             if field != QUESTIONS:
                 pattern = "<<{}>>".format(field)
                 populated_contents = populated_contents.replace(pattern, value)
-        body = self.qtree.to_latex()
-        return populated_contents.replace("<<{}>>".format(QUESTIONS), body)
+        if with_questions:
+            body = self.qtree.to_latex()
+            return populated_contents.replace("<<{}>>".format(QUESTIONS), body)
+        else:
+            return populated_contents
 
 
 class QuestionTree:

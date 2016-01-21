@@ -14,7 +14,7 @@ QUESTIONS = "questions"
 
 class TTGConfiguration:
 
-    def __init__(self, filename):
+    def __init__(self, filename, fields=None):
         if util.file_exists(filename):
             self.__parse_config(filename)
         else:
