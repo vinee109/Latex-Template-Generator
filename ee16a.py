@@ -1,18 +1,18 @@
 """
-ee16a.py
+Creates intial hw tex source with populated questions for EE16A homework
+assignments
 """
 __author__ = "Vineet Jain"
 
 import argparse
 import gen
-import os
 from os.path import expanduser
 import ttg.config
-import util
 
 HOME = expanduser("~")
 EE16A_DIR = HOME + "/Desktop/School/Spring-2016/EE16A/"
 TEMPLATE = EE16A_DIR + "hw/template/template.tex"
+
 
 def create_config(hw_num, qlayout):
     config_dict = {

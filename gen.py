@@ -10,6 +10,12 @@ import util
 
 
 def gen_template(template_file, output_file, config):
+    """
+    Populates and generates a new template
+    :param template_file: the initial template file
+    :param output_file: the output file where the populated template will live
+    :param config: the config object of type TTGConfiguration that will be used
+    """
     populator = ttg.populate.TTGPopulator(template_file, config)
     contents = populator.populate()
     util.write_file(contents, output_file)
