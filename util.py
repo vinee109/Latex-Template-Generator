@@ -54,10 +54,16 @@ def print_dict(dictionary):
     Prints dictionary in a readable way
     :param dictionary: the dictionary to be printed
     """
-    print dict_str(dictionary, 0)
+    print dict_str(dictionary)
 
 
-def dict_str(dct, depth):
+def dict_str(dictionary):
+    """
+    Generates a string containing a readable representation of the dictionary
+    :param dictionary: the dictionary of interest
+    :return: a readable string version of the dictionary
+    """
+    def __dict_str(dct, depth):
         """
         Recursively computes the string representation for a given dict
         :param dct: the dict of interest
@@ -70,8 +76,10 @@ def dict_str(dct, depth):
         tabs = "".join(["\t" for _ in range(depth+1)])
         for key, val in dct.items():
             if type(val) is dict:
-                val_string = dict_str(val, depth+1)
+                val_string = __dict_str(val, depth+1)
             else:
                 val_string = str(val)
             to_str += "{}{}: {}\n".format(tabs, key, val_string)
         return to_str + tabs[:-1] + "}"
+
+    return __dict_str(dictionary, 0)
