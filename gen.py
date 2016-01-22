@@ -9,11 +9,15 @@ import ttg.populate
 import util
 
 
-def do_command(args):
-    config = ttg.config.TTGConfiguration(args.config)
-    populator = ttg.populate.TTGPopulator(args.source, config)
+def gen_template(template_file, output_file, config_file):
+    config = ttg.config.TTGConfiguration(config_file)
+    populator = ttg.populate.TTGPopulator(template_file, config)
     contents = populator.populate()
-    util.write_file(contents, args.output)
+    util.write_file(contents, output_file)
+
+
+def do_command(args):
+    gen_template(args.source, args.output, args.config)
 
 
 def parse_command():
