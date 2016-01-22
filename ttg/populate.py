@@ -49,7 +49,8 @@ class TTGPopulator:
         for field, value in self.config.fields.items():
             if field != QUESTIONS:
                 pattern = "<<{}>>".format(field)
-                populated_contents = populated_contents.replace(pattern, value)
+                populated_contents = populated_contents.replace(pattern,
+                                                                str(value))
         if with_questions:
             body = self.qtree.to_latex()
             return populated_contents.replace("<<{}>>".format(QUESTIONS), body)

@@ -14,8 +14,10 @@ QUESTIONS = "questions"
 
 class TTGConfiguration:
 
-    def __init__(self, filename):
-        if util.file_exists(filename):
+    def __init__(self, filename="", json_fields=None):
+        if json_fields is not None:
+            self.__validate_json_contents(json_fields)
+        elif util.file_exists(filename):
             self.__parse_config(filename)
         else:
             raise error.FileDoesNotExistException(filename)
