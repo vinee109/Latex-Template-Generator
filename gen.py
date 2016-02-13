@@ -18,7 +18,7 @@ def gen_template(template_file, output_file, config):
     """
     populator = ttg.populate.TTGPopulator(template_file, config)
     contents = populator.populate()
-    util.write_file(contents, output_file)
+    util.write_file(contents + "\n", output_file)
 
 
 def do_command(args):
